@@ -1,21 +1,18 @@
 name: asuka
 description: Show Snackbars, dialogs, ModalSheets and more in a single provider. Simple and Clean.
-version: 2.0.1+1
+version: 2.2.1
 homepage: https://github.com/Flutterando/asuka
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.3.0 <4.0.0"
+  sdk: '>=3.0.0 <4.0.0'
 
-dependencies:    
+dependencies:
   flutter:
-    sdk:  flutter
-  
-    
+    sdk: flutter
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutterando_analysis: ^0.0.1+1
-  
+  flutterando_analysis: ^0.0.2
 
 flutter:

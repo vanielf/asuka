@@ -1,6 +1,10 @@
 import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 
+import '../core/consts.dart';
+import '../enums/asuka_type_enum.dart';
+import '../widgets/asuka_content_widget.dart';
+
 ///Defines the layout and behavior of a [AsukaSnackbar].
 ///
 ///For an example on how to use it, please check the [example] folder.
@@ -36,8 +40,11 @@ class AsukaSnackbar extends SnackBar {
     Color background, {
     IconData? icon,
     SnackBarAction? action,
+    double? width,
+    double elevation = 2,
   }) : super(
-          elevation: 2,
+          width: width,
+          elevation: elevation,
           backgroundColor: background,
           action: action,
           shape: RoundedRectangleBorder(
@@ -46,31 +53,11 @@ class AsukaSnackbar extends SnackBar {
             ),
           ),
           behavior: SnackBarBehavior.floating,
-          content: Row(
-            children: [
-              if (icon != null) ...[
-                Icon(
-                  icon,
-                  size: 20,
-                  color: Colors.black45,
-                ),
-                SizedBox(width: 10)
-              ],
-              Expanded(
-                child: Text(
-                  content,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              if (action == null)
-                InkWell(
-                  child: Icon(Icons.close, color: Colors.white),
-                  onTap: Asuka.hideCurrentSnackBar, //
-                )
-            ],
+          content: AsukaContentWidget(
+            icon: icon,
+            content: content,
+            actions: action == null ? null : [action],
+            type: AsukaType.snackbar,
           ),
         );
 
@@ -89,8 +76,20 @@ class AsukaSnackbar extends SnackBar {
   /// ```
   /// This code generates an ElevatedButton, when pressed, it calls
   /// asuka.AsukaSnackbar.warning("Warning").show()
-  factory AsukaSnackbar.warning(String content, {Key? key}) =>
-      AsukaSnackbar._(key, content, Color(0xFFE6CA72), icon: Icons.warning);
+  factory AsukaSnackbar.warning(
+    String content, {
+    Key? key,
+    double? width,
+    double elevation = 2,
+  }) =>
+      AsukaSnackbar._(
+        key,
+        content,
+        warningConfig.color,
+        icon: warningConfig.icon,
+        width: width,
+        elevation: elevation,
+      );
 
   ///Creates a subclass of [AsukaSnackbar] called [AsukaSnackbar.Alert]
   ///passing the [key], [content], setting the [color] to [Color(0xffFA5456)] and the [icon] to [Icons.report].
@@ -107,8 +106,20 @@ class AsukaSnackbar extends SnackBar {
   /// ```
   /// This code generates an ElevatedButton, when pressed, it calls
   /// asuka.AsukaSnackbar.alert("Alert").show()
-  factory AsukaSnackbar.alert(String content, {Key? key}) =>
-      AsukaSnackbar._(key, content, Color(0xffFA5456), icon: Icons.report);
+  factory AsukaSnackbar.alert(
+    String content, {
+    Key? key,
+    double? width,
+    double elevation = 2,
+  }) =>
+      AsukaSnackbar._(
+        key,
+        content,
+        alertConfig.color,
+        icon: alertConfig.icon,
+        width: width,
+        elevation: elevation,
+      );
 
   ///Creates a subclass of [AsukaSnackbar] called [AsukaSnackbar.Info]
   ///passing the [key], [content], setting the [color] to [Color(0xff3196DA)], an [action] and the [icon] to [Icons.help].
@@ -125,8 +136,22 @@ class AsukaSnackbar extends SnackBar {
   ///```
   ///This code generates an ElevatedButton, when pressed, it calls
   ///asuka.AsukaSnackbar.info("Info").show()
-  factory AsukaSnackbar.info(String content, {Key? key, SnackBarAction? snackBarAction}) =>
-      AsukaSnackbar._(key, content, Color(0xff3196DA), action: snackBarAction, icon: Icons.help);
+  factory AsukaSnackbar.info(
+    String content, {
+    Key? key,
+    SnackBarAction? snackBarAction,
+    double? width,
+    double elevation = 2,
+  }) =>
+      AsukaSnackbar._(
+        key,
+        content,
+        infoConfig.color,
+        action: snackBarAction,
+        icon: infoConfig.icon,
+        width: width,
+        elevation: elevation,
+      );
 
   ///Creates a subclass of [AsukaSnackbar] called [AsukaSnackbar.Success]
   ///passing the [key], [content], setting the [color] to [Color(0xFF80AD49)], an [action] and the [icon] to [Icons.check_circle].
@@ -143,9 +168,22 @@ class AsukaSnackbar extends SnackBar {
   /// ```
   /// This code generates an ElevatedButton, when pressed, it calls
   /// asuka.AsukaSnackbar.success("Success").show()
-  factory AsukaSnackbar.success(String content, {Key? key, SnackBarAction? snackBarAction}) =>
-      AsukaSnackbar._(key, content, Color(0xFF80AD49),
-          action: snackBarAction, icon: Icons.check_circle);
+  factory AsukaSnackbar.success(
+    String content, {
+    Key? key,
+    SnackBarAction? snackBarAction,
+    double? width,
+    double elevation = 2,
+  }) =>
+      AsukaSnackbar._(
+        key,
+        content,
+        successConfig.color,
+        action: snackBarAction,
+        icon: successConfig.icon,
+        width: width,
+        elevation: elevation,
+      );
 
   ///Creates a subclass of [AsukaSnackbar] called [AsukaSnackbar.Message]
   ///passing the [key], [content], setting the [color] to [Color(0xff484848)].
@@ -162,8 +200,19 @@ class AsukaSnackbar extends SnackBar {
   /// ```
   /// This code generates an ElevatedButton, when pressed, it calls
   /// asuka.AsukaSnackbar.message("Message").show()
-  factory AsukaSnackbar.message(String content, {Key? key}) =>
-      AsukaSnackbar._(key, content, Color(0xff484848));
+  factory AsukaSnackbar.message(
+    String content, {
+    Key? key,
+    double? width,
+    double elevation = 2,
+  }) =>
+      AsukaSnackbar._(
+        key,
+        content,
+        messageConfig.color,
+        width: width,
+        elevation: elevation,
+      );
 
   void call() => show();
 

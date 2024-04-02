@@ -1,31 +1,105 @@
+## How to use
+
+Add the following code when calling your Material App:
+
+```dart
 import 'package:asuka/asuka.dart';
-import 'package:asuka/enums/asuka_type_enum.dart';
-import 'package:asuka/widgets/asuka_content_widget.dart';
-import 'package:flutter/material.dart';
 
-class HomeController {
-  void onClickSnackbar() {
-    Asuka.showSnackBar(const SnackBar(content: Text('New snackBar!!!')));
-  }
+MaterialApp(
+    builder: Asuka.builder,
+    navigatorObservers: [
+       Asuka.asukaHeroController //This line is needed for the Hero widget to work
+    ],
+);
+```
 
-  void onClickMaterialBanner() {
-    Asuka.showMaterialBanner(
-      const MaterialBanner(
-        overflowAlignment: OverflowBarAlignment.start,
-        backgroundColor: Colors.red,
-        elevation: 1,
-        content: AsukaContentWidget(
-          icon: Icons.report,
-          content: 'This is a Material Banner',
-          actions: [],
-          type: AsukaType.materialBanner,
-        ),
-        actions: [SizedBox.shrink()],
-      ),
-    );
-  }
+## Exemples
 
-  void onClickDialog() {
+### Asuka Snackbars
+
+* AsukaSnackbar.alert
+
+```dart
+import 'package:asuka/asuka.dart';
+
+ElevatedButton(
+onPressed: () {
+  asuka.AsukaSnackbar.alert("Alert").show();
+},
+child: const Text("Show alert"),
+)
+```
+
+* AsukaSnackbar.info
+
+```dart
+import 'package:asuka/asuka.dart';
+
+ElevatedButton(
+onPressed: () {
+  asuka.AsukaSnackbar.info("Info").show();
+},
+child: const Text("Show Info"),
+)
+```
+
+* AsukaSnackbar.message
+
+```dart
+import 'package:asuka/asuka.dart';
+
+ElevatedButton(
+onPressed: () {
+  asuka.AsukaSnackbar.message("Message").show();
+},
+child: const Text("Show message"),
+)
+```
+
+* AsukaSnackbar.success
+
+```dart
+import 'package:asuka/asuka.dart';
+
+ElevatedButton(
+onPressed: () {
+  asuka.AsukaSnackbar.success("Success").show();
+},
+child: const Text("Show success"),
+)
+```
+
+* AsukaSnackbar.warning 
+
+```dart
+import 'package:asuka/asuka.dart';
+
+ElevatedButton(
+onPressed: () {
+  asuka.AsukaSnackbar.warning("Warning").show();
+},
+child: const Text("Show warning"),
+)
+```
+
+### Asuka Examples
+
+* Asuka.builder
+
+```dart
+import 'package:asuka/asuka.dart';
+
+Widget builder(BuildContext context, Widget? child) {
+  return Asuka.builder(context, child);
+}
+```
+
+* Asuka.showDialog
+
+```dart
+import 'package:asuka/asuka.dart';
+
+ void onClickDialog() {
     Asuka.showDialog(
       builder: (context) => AlertDialog(
         title: const Text('My Dialog'),
@@ -47,8 +121,14 @@ class HomeController {
       ),
     );
   }
+```
 
-  void onClickBottomSheet() {
+* Asuka.showBottomSheet
+
+```dart
+import 'package:asuka/asuka.dart';
+
+void onClickBottomSheet() {
     Asuka.showBottomSheet((context) {
       return Material(
         elevation: 7,
@@ -72,8 +152,14 @@ class HomeController {
       );
     });
   }
+```
 
-  void onClickModalBottomSheet() {
+* Asuka.showModalBottomSheet
+
+```dart
+import 'package:asuka/asuka.dart';
+
+void onClickModalBottomSheet() {
     Asuka.showModalBottomSheet(
       builder: (context) => Material(
         borderRadius: const BorderRadius.only(
@@ -103,3 +189,5 @@ class HomeController {
     );
   }
 }
+```
+
